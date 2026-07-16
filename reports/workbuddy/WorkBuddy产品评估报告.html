@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WorkBuddy 产品评估报告 · 元任务 MetaTask</title>
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+SC:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap");
+
+  :root{
+    --ink-900:#0F172A; --ink-800:#1E293B; --ink-700:#334155;
+    --sky:#38BDF8; --iris:#818CF8;
+    --accent-grad:linear-gradient(135deg,#38BDF8 0%,#818CF8 100%);
+    --accent-grad-soft:linear-gradient(135deg,#38BDF81A 0%,#818CF81A 100%);
+    --s50:#F8FAFC; --s100:#F1F5F9; --s200:#E2E8F0; --s300:#CBD5E1;
+    --s400:#94A3B8; --s500:#64748B; --s600:#475569; --s700:#334155;
+    --s800:#1E293B; --s900:#0F172A;
+    --success:#22C55E; --warning:#F59E0B; --error:#EF4444; --info:#38BDF8;
+    --r-sm:8px; --r-md:12px; --r-lg:16px; --r-xl:24px; --r-pill:999px;
+    --sh-1:0 1px 2px rgba(15,23,42,.06);
+    --sh-2:0 4px 12px rgba(15,23,42,.08);
+    --sh-3:0 12px 32px rgba(15,23,42,.12);
+    --sh-glow:0 8px 30px rgba(56,189,248,.25);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:"Inter","Noto Sans SC",sans-serif;background:var(--s50);color:var(--ink-800);line-height:1.6;-webkit-font-smoothing:antialiased}
+  code,.mono{font-family:"JetBrains Mono",monospace}
+
+  .wrap{max-width:1080px;margin:0 auto;padding:0 32px}
+  section{padding:72px 0;border-bottom:1px solid var(--s200)}
+  .eyebrow{font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--sky);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+  .eyebrow::before{content:"";width:24px;height:2px;background:var(--accent-grad);border-radius:2px}
+  h2.sec{font-size:34px;font-weight:700;color:var(--ink-900);letter-spacing:-.5px;margin-bottom:8px}
+  .sec-sub{font-size:15px;color:var(--s500);margin-bottom:40px;max-width:680px}
+  h3.grp{font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--s500);margin:40px 0 18px;display:flex;align-items:center;gap:10px}
+  h3.grp .num{font-family:"JetBrains Mono",monospace;color:var(--sky);font-size:12px}
+  p.lead{font-size:15px;color:var(--s600);margin-bottom:16px;max-width:680px}
+  .note{font-size:13px;color:var(--s500);line-height:1.7}
+
+  /* Hero */
+  .hero{background:radial-gradient(120% 120% at 80% 0%,#1E293B 0%,#0F172A 55%);color:#fff;padding:88px 0 80px;position:relative;overflow:hidden;border-bottom:none}
+  .hero::after{content:"";position:absolute;right:-120px;top:-80px;width:520px;height:520px;background:radial-gradient(circle,rgba(56,189,248,.18),transparent 60%);pointer-events:none}
+  .hero .wrap{position:relative;z-index:1}
+  .hero .badge{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--sky);background:rgba(56,189,248,.08);border:1px solid rgba(56,189,248,.2);padding:6px 14px;border-radius:var(--r-pill);margin-bottom:28px}
+  .hero h1{font-size:50px;font-weight:800;letter-spacing:-1.5px;line-height:1.08;margin-bottom:20px}
+  .hero h1 .g{background:var(--accent-grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .hero p{font-size:17px;color:var(--s400);max-width:580px;line-height:1.7}
+  .hero-meta{display:flex;gap:40px;margin-top:48px;flex-wrap:wrap}
+  .hero-meta .m .k{font-size:12px;color:var(--s500);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+  .hero-meta .m .v{font-size:15px;color:#fff;font-weight:500}
+  .hero-meta .m .v .accent{color:var(--sky)}
+
+  /* TOC */
+  .toc{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;padding-top:8px}
+  .toc a{display:block;padding:18px 20px;background:#fff;border:1px solid var(--s200);border-radius:var(--r-md);text-decoration:none;transition:.2s;box-shadow:var(--sh-1)}
+  .toc a:hover{border-color:var(--sky);transform:translateY(-2px);box-shadow:var(--sh-2)}
+  .toc a .n{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--sky);font-weight:500}
+  .toc a .t{font-size:15px;font-weight:600;color:var(--ink-900);margin-top:6px}
+  .toc a .d{font-size:12px;color:var(--s500);margin-top:4px}
+
+  /* Cards / panels */
+  .panel{background:#fff;border:1px solid var(--s200);border-radius:var(--r-lg);padding:28px;box-shadow:var(--sh-1)}
+  table.tok{width:100%;border-collapse:collapse;font-size:13px;background:#fff;border-radius:var(--r-md);overflow:hidden;border:1px solid var(--s200);box-shadow:var(--sh-1)}
+  table.tok th{background:var(--s50);text-align:left;padding:12px 16px;font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--s500);border-bottom:1px solid var(--s200)}
+  table.tok td{padding:12px 16px;border-bottom:1px solid var(--s100);color:var(--s700);vertical-align:top}
+  table.tok td.m{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--ink-900)}
+  table.tok tr:last-child td{border-bottom:none}
+
+  /* chips */
+  .chip{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;padding:4px 12px;border-radius:var(--r-pill)}
+  .chip-accent{background:var(--accent-grad-soft);color:#2563EB}
+  .chip-ink{background:var(--ink-900);color:#fff}
+  .chip-success{background:#22C55E1A;color:#16A34A}
+  .chip-warn{background:#F59E0B1A;color:#D97706}
+  .chip-error{background:#EF44441A;color:#DC2626}
+  .chip-neutral{background:var(--s100);color:var(--s600)}
+
+  /* score grid */
+  .score-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
+  .score-card{background:#fff;border:1px solid var(--s200);border-radius:var(--r-lg);padding:22px;box-shadow:var(--sh-1);position:relative;overflow:hidden}
+  .score-card .label{font-size:12px;color:var(--s500);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+  .score-card .num{font-size:38px;font-weight:800;letter-spacing:-1.5px;color:var(--ink-900);line-height:1}
+  .score-card .num .g{background:var(--accent-grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .score-card .desc{font-size:12.5px;color:var(--s500);margin-top:10px;line-height:1.6}
+  .score-card .bar{height:6px;background:var(--s100);border-radius:3px;margin-top:14px;overflow:hidden}
+  .score-card .bar .fill{height:100%;background:var(--accent-grad);border-radius:3px}
+
+  /* do/dont */
+  .dd{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:8px}
+  .box{border-radius:var(--r-md);padding:20px;border:1px solid}
+  .box.do{background:#22C55E0D;border-color:#22C55E33}
+  .box.do .h{color:#16A34A;font-weight:700;font-size:13px;margin-bottom:8px}
+  .box.dont{background:#EF44440D;border-color:#EF444433}
+  .box.dont .h{color:#DC2626;font-weight:700;font-size:13px;margin-bottom:8px}
+  .box p{font-size:13px;color:var(--s600);line-height:1.7}
+
+  /* callout */
+  .callout{background:var(--accent-grad-soft);border-left:3px solid var(--sky);border-radius:var(--r-md);padding:18px 22px;font-size:14px;color:var(--s700);line-height:1.7;margin:14px 0}
+  .callout b{color:var(--ink-900)}
+
+  /* feature grid */
+  .fgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px}
+  .fcard{background:#fff;border:1px solid var(--s200);border-radius:var(--r-lg);padding:24px;box-shadow:var(--sh-1);transition:.2s}
+  .fcard:hover{box-shadow:var(--sh-2);transform:translateY(-2px)}
+  .fcard .ic{width:44px;height:44px;border-radius:var(--r-md);background:linear-gradient(135deg,rgba(56,189,248,.15),rgba(129,140,248,.15));display:flex;align-items:center;justify-content:center;margin-bottom:14px}
+  .fcard h4{font-size:17px;font-weight:600;color:var(--ink-900);margin-bottom:8px}
+  .fcard p{font-size:13.5px;color:var(--s600);line-height:1.7}
+  .fcard .tag{margin-top:14px;display:flex;gap:8px;flex-wrap:wrap}
+
+  /* feedback card */
+  .fb-card{background:#fff;border:1px solid var(--s200);border-radius:var(--r-lg);padding:24px;box-shadow:var(--sh-1)}
+  .fb-card .head{display:flex;align-items:center;gap:10px;margin-bottom:14px;padding-bottom:14px;border-bottom:1px dashed var(--s200)}
+  .fb-card .head .who{font-size:13px;font-weight:600;color:var(--ink-900)}
+  .fb-card .head .src{font-size:11px;color:var(--s400);font-family:"JetBrains Mono",monospace}
+  .fb-card ul{list-style:none;padding:0}
+  .fb-card li{font-size:13.5px;color:var(--s600);padding:6px 0 6px 22px;position:relative;line-height:1.7}
+  .fb-card li::before{content:"";position:absolute;left:0;top:13px;width:8px;height:8px;border-radius:2px;background:var(--accent-grad)}
+  .fb-card.neg li::before{background:var(--error)}
+  .fb-card.pos li::before{background:var(--success)}
+
+  /* dark stat band */
+  .dark-band{background:radial-gradient(120% 120% at 92% -12%,rgba(56,189,248,.10),transparent 55%),#0F172A;border-radius:var(--r-xl);padding:40px;margin:8px 0 0}
+  .dark-band .eyebrow{color:var(--sky)}
+  .stat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:16px;margin-top:20px}
+  .stat{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:var(--r-md);padding:20px}
+  .stat .v{font-size:30px;font-weight:800;letter-spacing:-1px;color:#fff;line-height:1.1}
+  .stat .v .g{background:var(--accent-grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .stat .l{font-size:12px;color:var(--s400);margin-top:8px}
+
+  /* verdict */
+  .verdict{background:var(--ink-900);color:#fff;border-radius:var(--r-xl);padding:44px;position:relative;overflow:hidden}
+  .verdict::after{content:"";position:absolute;right:-80px;top:-60px;width:340px;height:340px;background:radial-gradient(circle,rgba(56,189,248,.18),transparent 60%);pointer-events:none}
+  .verdict .inner{position:relative;z-index:1}
+  .verdict h3{font-size:24px;font-weight:700;margin-bottom:14px}
+  .verdict p{color:var(--s300);font-size:15px;line-height:1.8;max-width:760px}
+  .verdict .grade{display:inline-flex;align-items:center;gap:12px;background:rgba(56,189,248,.08);border:1px solid rgba(56,189,248,.25);padding:10px 20px;border-radius:var(--r-pill);margin-bottom:24px;font-size:13px;font-weight:600;color:var(--sky);letter-spacing:1px}
+
+  /* footer */
+  footer{padding:40px 0 48px;background:var(--s100);border-top:1px solid var(--s200)}
+  footer .fl{display:flex;align-items:center;gap:14px;margin-bottom:10px}
+  footer .mt-name{font-size:18px;font-weight:600;color:var(--ink-900)}
+  footer .fmeta{font-size:12px;color:var(--s500);line-height:1.7}
+
+  @media(max-width:720px){
+    .wrap{padding:0 20px}
+    .hero h1{font-size:34px}
+    .dd{grid-template-columns:1fr}
+    section{padding:56px 0}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="wrap">
+    <div class="badge">◆ Product Evaluation Report · 2026.07</div>
+    <h1>WorkBuddy<br>产品<span class="g">评估报告</span></h1>
+    <p>腾讯出品的全场景 AI 办公工作台。综合产品调研与真实用户反馈，从定位、能力、体验、风险、价格五个维度评估其当前产品成熟度与适用边界。</p>
+    <div class="hero-meta">
+      <div class="m"><div class="k">调研对象</div><div class="v">腾讯 <span class="accent">WorkBuddy</span></div></div>
+      <div class="m"><div class="k">发布时间</div><div class="v">2026.05.29</div></div>
+      <div class="m"><div class="k">反馈截止</div><div class="v">2026.07.16</div></div>
+      <div class="m"><div class="k">报告出品</div><div class="v">元任务 MetaTask</div></div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ TOC ============ -->
+<section style="padding-top:56px">
+  <div class="wrap">
+    <div class="eyebrow">目录 Contents</div>
+    <h2 class="sec">报告结构</h2>
+    <p class="sec-sub">从产品全景到用户口碑，再到最终结论与建议，逐层递进。</p>
+    <div class="toc">
+      <a href="#snapshot"><div class="n">01</div><div class="t">产品速览</div><div class="d">定位 · 发布 · 三大模块</div></a>
+      <a href="#capabilities"><div class="n">02</div><div class="t">核心能力</div><div class="d">Agent · Skills · MCP · 模型</div></a>
+      <a href="#scores"><div class="n">03</div><div class="t">五维评分</div><div class="d">综合产品力打分</div></a>
+      <a href="#feedback"><div class="n">04</div><div class="t">用户反馈</div><div class="d">正面 · 负面 · 分人群</div></a>
+      <a href="#risks"><div class="n">05</div><div class="t">风险与边界</div><div class="d">不推荐场景 · 数据治理</div></a>
+      <a href="#pricing"><div class="n">06</div><div class="t">价格策略</div><div class="d">三档套餐 · Credits 机制</div></a>
+      <a href="#verdict"><div class="n">07</div><div class="t">最终结论</div><div class="d">适用人群 · 使用姿势</div></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 01 SNAPSHOT ============ -->
+<section id="snapshot">
+  <div class="wrap">
+    <div class="eyebrow">01 · Product Snapshot</div>
+    <h2 class="sec">产品速览</h2>
+    <p class="sec-sub">腾讯 2026 年 5 月推出的全场景 AI 办公工作台，定位为"一个真正能干活的超级个体"——不只对话回答，而是自主拆解、调用工具、操作本地文件并交付可验收成果。</p>
+
+    <h3 class="grp"><span class="num">1.1</span> 基础信息</h3>
+    <table class="tok">
+      <tr><th>维度</th><th>信息</th></tr>
+      <tr><td>产品名称</td><td class="m">WorkBuddy（腾讯）</td></tr>
+      <tr><td>上线时间</td><td class="m">2026.05.29（中国首发，后面向全球用户）</td></tr>
+      <tr><td>产品形态</td><td>桌面客户端（macOS / Windows）+ 多渠道 IM 远程控制</td></tr>
+      <tr><td>核心定位</td><td>全场景 AI 办公工作台 · AI Agent 办公新范式</td></tr>
+      <tr><td>差异口号</td><td>"不止对话，能干活并交付成果"</td></tr>
+      <tr><td>当前版本</td><td class="m">v5.2.x（截至 2026.07，迭代极快）</td></tr>
+    </table>
+
+    <h3 class="grp"><span class="num">1.2</span> 三大产品模块</h3>
+    <div class="fgrid">
+      <div class="fcard">
+        <div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="4" stroke="#38BDF8" stroke-width="1.8"/><rect x="8" y="8" width="8" height="8" rx="2" fill="url(#g1)"/><defs><linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#38BDF8"/><stop offset="1" stop-color="#818CF8"/></linearGradient></defs></svg></div>
+        <h4>领域专家</h4>
+        <p>100+ 预置专家（招聘 / 投研 / 前端 / 法务 / 营销等），支持上传 SOP 与知识库构建企业专属专家，自主拆解任务并交付可验收成果。</p>
+        <div class="tag"><span class="chip chip-accent">100+ 专家</span><span class="chip chip-neutral">企业可定制</span></div>
+      </div>
+      <div class="fcard">
+        <div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#38BDF8" stroke-width="1.8"/><path d="M12 7v5l3 2" stroke="#818CF8" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+        <h4>云端助理</h4>
+        <p>日常高频任务，自然语言下达即执行。云端 7×24 任务托管，关闭客户端不中断，成果可直接下载。</p>
+        <div class="tag"><span class="chip chip-accent">7×24 托管</span><span class="chip chip-neutral">免配置</span></div>
+      </div>
+      <div class="fcard">
+        <div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="6" cy="6" r="2.5" stroke="#38BDF8" stroke-width="1.6"/><circle cx="18" cy="6" r="2.5" stroke="#818CF8" stroke-width="1.6"/><circle cx="12" cy="18" r="2.5" stroke="#38BDF8" stroke-width="1.6"/><path d="M8 7l3 9M16 7l-3 9" stroke="#94A3B8" stroke-width="1.4"/></svg></div>
+        <h4>多 Agent 协同</h4>
+        <p>同一目标拆分给多个 Agent 并行处理，结果统一汇总；流程沉淀至项目空间，团队一次配置多人复用。</p>
+        <div class="tag"><span class="chip chip-accent">并行执行</span><span class="chip chip-neutral">团队复用</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02 CAPABILITIES ============ -->
+<section id="capabilities">
+  <div class="wrap">
+    <div class="eyebrow">02 · Core Capabilities</div>
+    <h2 class="sec">核心能力与技术架构</h2>
+    <p class="sec-sub">Agent + Skills + MCP + 多模型四层架构，与同类产品（如 MetaCode）理念相似，差异在于生态侧重点。</p>
+
+    <h3 class="grp"><span class="num">2.1</span> 架构四层</h3>
+    <div class="fgrid">
+      <div class="fcard">
+        <h4>Agent 自主执行</h4>
+        <p>自然语言 → 任务拆解 → 调用工具 → 自我校验修正 → 交付成果。支持 computer-use（macOS），故障可自愈重试。</p>
+      </div>
+      <div class="fcard">
+        <h4>Skills 生态</h4>
+        <p>内置精选 Skill + SkillHub 市场（7万+ Skills，一键安装），兼容 Vercel/OpenClaw 生态。企业可自建 Skill 市场，安装前安全扫描。</p>
+      </div>
+      <div class="fcard">
+        <h4>MCP 连接器</h4>
+        <p>通过 MCP 连接 GitHub、Jira、Google Drive、Gmail、Notion、Slack、腾讯文档、ima 知识库、企微等外部工具与数据源。</p>
+      </div>
+      <div class="fcard">
+        <h4>多模型可切换</h4>
+        <p>支持自定义模型 UI 配置，已接入 DeepSeek V4、Kimi K2.6，支持 API Key 接入第三方模型。内置混元模型为默认。</p>
+      </div>
+    </div>
+
+    <h3 class="grp"><span class="num">2.2</span> 与传统 AI 对话工具差异（官方口径）</h3>
+    <table class="tok">
+      <tr><th>维度</th><th>传统 AI 对话</th><th>WorkBuddy</th></tr>
+      <tr><td>执行能力</td><td>只提供建议</td><td class="m">实际执行并交付结果</td></tr>
+      <tr><td>文件操作</td><td>需手动操作</td><td class="m">自动读写本地文件</td></tr>
+      <tr><td>任务复杂度</td><td>单步骤简单任务</td><td class="m">多步骤复杂任务</td></tr>
+      <tr><td>输出形式</td><td>文字回复</td><td class="m">可验收成果</td></tr>
+    </table>
+
+    <div class="callout"><b>生态差异点</b>：WorkBuddy 重度整合腾讯办公生态（微信 / 企微 / 腾讯文档 / ima），多渠道 IM 远程控制是其独有优势；MetaCode 则更侧重编码 CLI 场景。两者架构理念相似，场景侧重不同。</div>
+  </div>
+</section>
+
+<!-- ============ 03 SCORES ============ -->
+<section id="scores">
+  <div class="wrap">
+    <div class="eyebrow">03 · Five-Dimension Scoring</div>
+    <h2 class="sec">五维产品力评分</h2>
+    <p class="sec-sub">综合产品调研与用户反馈，对五个核心维度打分。满分 10 分，基于公开信息与多源口碑交叉评估。</p>
+
+    <div class="score-grid">
+      <div class="score-card">
+        <div class="label">产品定位与愿景</div>
+        <div class="num"><span class="g">8.5</span><span style="font-size:18px;color:var(--s400);font-weight:500">/10</span></div>
+        <div class="desc">"执行型 Agent"定位清晰，与对话型 AI 形成明确差异；腾讯生态整合是真实壁垒。</div>
+        <div class="bar"><div class="fill" style="width:85%"></div></div>
+      </div>
+      <div class="score-card">
+        <div class="label">办公场景实用性</div>
+        <div class="num"><span class="g">8.0</span><span style="font-size:18px;color:var(--s400);font-weight:500">/10</span></div>
+        <div class="desc">文档/纪要/数据整理/客户运营等非技术办公场景反馈普遍正面，省时明显。</div>
+        <div class="bar"><div class="fill" style="width:80%"></div></div>
+      </div>
+      <div class="score-card">
+        <div class="label">编码与深度任务</div>
+        <div class="num" style="color:var(--error)">4.5<span style="font-size:18px;color:var(--s400);font-weight:500">/10</span></div>
+        <div class="desc">开发者共识：混元模型编码能力弱，修一处坏一处，不建议用于严肃开发。</div>
+        <div class="bar"><div class="fill" style="width:45%;background:var(--error)"></div></div>
+      </div>
+      <div class="score-card">
+        <div class="label">稳定性与可控性</div>
+        <div class="num" style="color:var(--warning)">5.5<span style="font-size:18px;color:var(--s400);font-weight:500">/10</span></div>
+        <div class="desc">"智商下降"反馈突出，表现因时因任务而异，需人工盯着，不能放养。</div>
+        <div class="bar"><div class="fill" style="width:55%;background:var(--warning)"></div></div>
+      </div>
+      <div class="score-card">
+        <div class="label">生态与扩展性</div>
+        <div class="num"><span class="g">7.5</span><span style="font-size:18px;color:var(--s400);font-weight:500">/10</span></div>
+        <div class="desc">SkillHub + MCP + 多模型 + 多渠道 IM，生态齐全；但腾讯生态绑定深，自定义能力弱于 OpenClaw。</div>
+        <div class="bar"><div class="fill" style="width:75%"></div></div>
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top:24px"><b>综合评分：6.8 / 10</b> · 早期阶段有潜力的执行型 Agent，办公场景可用性已验证，但编码能力、稳定性、生态开放度三处短板明显，当前更适合当"需要盯着的副驾驶"而非"全自动员工"。</div>
+  </div>
+</section>
+
+<!-- ============ 04 FEEDBACK ============ -->
+<section id="feedback">
+  <div class="wrap">
+    <div class="eyebrow">04 · User Feedback</div>
+    <h2 class="sec">用户实际反馈</h2>
+    <p class="sec-sub">综合腾讯云社区、知乎、CocoLoop、TRAE 社区、Linux Do、Reddit 等多源反馈。用户画像分化明显：非技术办公人员好评多，开发者差评多。</p>
+
+    <h3 class="grp"><span class="num">4.1</span> 正面反馈（谁觉得好用）</h3>
+    <div class="fgrid" style="margin-bottom:8px">
+      <div class="fb-card pos">
+        <div class="head"><span class="who">HR / 行政 / PM / 销售（非技术岗）</span><span class="src">CocoLoop · 知乎 · 腾讯云社区</span></div>
+        <ul>
+          <li>会议纪要、周报、文档摘要从 2 小时压到 20 分钟</li>
+          <li>客户运营全场景（晨会盘点、拜访简报、群发规划、客户分层）反馈好用</li>
+          <li>5 分钟整理 45 张发票生成 Excel；10 分钟出财务整改报告初稿</li>
+          <li>Reddit 用户：会议纪要/文档/摘要/邮件草稿每天省 15-20 分钟 × 多次</li>
+        </ul>
+      </div>
+      <div class="fb-card pos">
+        <div class="head"><span class="who">深度玩家人士</span><span class="src">知乎</span></div>
+        <ul>
+          <li>每日定时拉 B 站数据写入飞书表格，自主增加"数据增量显示"</li>
+          <li>用 30 篇知乎文章训练专属 Skill 模仿创作风格，"9 分像，换个人分辨不出"</li>
+          <li>启动速度秒级（对比 QClaw 动辄 1 分钟+），成为"离不开"的理由</li>
+          <li>腾讯文档/企微深度整合减少跳转，合规友好</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 class="grp"><span class="num">4.2</span> 负面反馈（核心吐槽点）</h3>
+    <div class="fgrid" style="margin-bottom:8px">
+      <div class="fb-card neg">
+        <div class="head"><span class="who">编码能力差</span><span class="src">CocoLoop · TRAE · Linux Do</span></div>
+        <ul>
+          <li>"混元模型写代码真的拉胯，别用它写代码"</li>
+          <li>"coding agent 框架不如 Trae，写得慢、反复调整、get 不到意思"</li>
+          <li>改代码"修一处坏一处"，不宜大改成熟项目</li>
+          <li>开发者共识：用 OpenClaw / Claude Code / Codex 写代码，WorkBuddy 只写周报邮件</li>
+        </ul>
+      </div>
+      <div class="fb-card neg">
+        <div class="head"><span class="who">"智商下降"——稳定性不可控</span><span class="src">腾讯云社区</span></div>
+        <ul>
+          <li>开发者从"惊艳"到"崩溃"：脚本/调试/文档出现反复理解错误、互相矛盾方案</li>
+          <li>不同时间使用表现难以预期，依赖运气</li>
+          <li>生成内容有时漏关键点，不能完全无脑用</li>
+          <li>推测原因：上下文窗口假象、算力分配、对话历史污染、过度对齐</li>
+        </ul>
+      </div>
+      <div class="fb-card neg">
+        <div class="head"><span class="who">平台/系统层问题</span><span class="src">知乎 · 腾讯云社区</span></div>
+        <ul>
+          <li>Windows 休眠导致定时任务失效，只能等系统"自己清醒"时跑</li>
+          <li>Windows 上不能操作 Edge 浏览器（macOS 可操作 Safari）</li>
+          <li>知乎反爬虫：直接读文章受阻，需手动下载后喂给它</li>
+          <li>MCP 操作小红书遇防火墙拦截，流程不稳定</li>
+        </ul>
+      </div>
+      <div class="fb-card neg">
+        <div class="head"><span class="who">模型与生态绑定太深</span><span class="src">CocoLoop · Linux Do</span></div>
+        <ul>
+          <li>"感觉就是企业微信的 AI 版，生态绑定太深了"</li>
+          <li>不用企微很多功能用不上，"有点浪费"</li>
+          <li>连接自定义模型频繁中断，内置模型相对稳定</li>
+          <li>自定义能力弱，无法像 OpenClaw 那样自搭工作流</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout"><b>反馈来源可信度提示</b>：腾讯云社区内容最丰富但属腾讯生态，带试用分享色彩；知乎部分为服务商软文；CocoLoop / TRAE / Linux Do 为独立社区，开发者视角负面反馈更真实；Reddit 讨论稀疏。网上好评偏多，独立大样本长期负面评价暂时不足——建议亲自拿真实任务测"是否稳定交付"。</div>
+  </div>
+</section>
+
+<!-- ============ 05 RISKS ============ -->
+<section id="risks">
+  <div class="wrap">
+    <div class="eyebrow">05 · Risks & Boundaries</div>
+    <h2 class="sec">风险与适用边界</h2>
+    <p class="sec-sub">多源反馈归纳的不推荐场景与企业数据治理隐患。</p>
+
+    <h3 class="grp"><span class="num">5.1</span> 不推荐场景（多源共识）</h3>
+    <table class="tok">
+      <tr><th>不推荐场景</th><th>原因</th></tr>
+      <tr><td>严肃软件开发</td><td>模型编码能力差，修一处坏一处</td></tr>
+      <tr><td>高稳定性 / 深度定制需求企业</td><td>表现不可控，自定义能力弱</td></tr>
+      <tr><td>依赖微信内容分析的场景</td><td>腾讯产品 ≠ 能无缝读微信一切内容</td></tr>
+      <tr><td>删改重要文件 / 生产代码全量重构</td><td>误操作风险高，必须人工确认</td></tr>
+      <tr><td>敏感数据 / 财务 / 法律 / 对外发布流程</td><td>需零失误，生成内容必须人工复核</td></tr>
+      <tr><td>不使用企微的团队</td><td>生态绑定深，功能浪费</td></tr>
+    </table>
+
+    <h3 class="grp"><span class="num">5.2</span> 企业数据治理隐患（个人版）</h3>
+    <div class="dd">
+      <div class="box dont">
+        <div class="h">✕ 个人版六大风险</div>
+        <p><b>账号资产不可控</b>：账号属员工个人，离职带走对话记录、工作流程、Skill、上传文件。<br><b>成本黑盒</b>：费用散落不同科目，无法追踪谁在用、用了多少。<br><b>知识资产随人流失</b>：提示词模板、业务经验存在个人账号，离职后组织能力清零。<br><b>安全审计缺失</b>：客户信息/合同在第三方平台无日志、无审计，"裸奔"。<br><b>推广不可复制</b>：十人以上规模培训成系统性难题。<br><b>场景不闭环</b>：只部分解决提效，覆盖不到资产可控与知识沉淀。</p>
+      </div>
+      <div class="box do">
+        <div class="h">✓ 推荐使用姿势</div>
+        <p><b>第一步</b>：让它先出执行计划（Plan 模式）<br><b>第二步</b>：限定目录和权限<br><b>第三步</b>：先跑小样本<br><b>第四步</b>：人工验收<br><b>第五步</b>：再执行全量<br><br>涉及删除/移动/覆盖文件时，必须先列出计划和影响范围，再人工确认。企业敏感数据建议用企业版，避免个人版处理客户/合同/财务资料。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 06 PRICING ============ -->
+<section id="pricing">
+  <div class="wrap">
+    <div class="eyebrow">06 · Pricing</div>
+    <h2 class="sec">价格策略</h2>
+    <p class="sec-sub">Credits 机制驱动，三档套餐覆盖个人到大型企业。新用户 14 天免费试用。</p>
+
+    <div class="dark-band">
+      <div class="eyebrow">Pricing Tiers</div>
+      <h2 class="sec" style="color:#fff">三档套餐</h2>
+      <div class="stat-grid">
+        <div class="stat">
+          <div class="v"><span class="g">99</span><span style="font-size:16px;color:var(--s400);font-weight:500"> 元/月</span></div>
+          <div class="l">个人版<br>2000 Credits · 对话不限频<br>个人开发者 / 自由职业</div>
+        </div>
+        <div class="stat">
+          <div class="v"><span class="g">198</span><span style="font-size:16px;color:var(--s400);font-weight:500"> 元/月/坐席</span></div>
+          <div class="l">企业旗舰版<br>团队共享 · 对话不限频<br>中小企业 / 团队</div>
+        </div>
+        <div class="stat">
+          <div class="v"><span class="g">316</span><span style="font-size:16px;color:var(--s400);font-weight:500"> 元/用户/月</span></div>
+          <div class="l">企业专享版<br>VPC 专享网络 · 企业插件<br>100 人+ 大型企业</div>
+        </div>
+        <div class="stat">
+          <div class="v"><span class="g">14</span><span style="font-size:16px;color:var(--s400);font-weight:500"> 天免费</span></div>
+          <div class="l">试用权益<br>所有用户<br>足够深度测试</div>
+        </div>
+      </div>
+    </div>
+    <p class="note" style="margin-top:14px">Credits 是用于支付 AI 模型调用和任务执行的"燃料"，不同任务消耗不同。企业版另有"限时双倍 Credits"活动。数据来源：知乎深度评测（2026.07）。</p>
+  </div>
+</section>
+
+<!-- ============ 07 VERDICT ============ -->
+<section id="verdict">
+  <div class="wrap">
+    <div class="eyebrow">07 · Final Verdict</div>
+    <h2 class="sec">最终结论</h2>
+    <p class="sec-sub">综合产品调研与用户反馈的最终评估。</p>
+
+    <div class="verdict">
+      <div class="inner">
+        <div class="grade">◆ 综合评级 · B+ · 早期可用，需盯着</div>
+        <h3>一句话结论</h3>
+        <p>WorkBuddy 在<b style="color:#fff">非技术办公自动化</b>（文档 / 纪要 / 数据整理 / 客户运营）场景有明确价值，尤其适合<b style="color:#fff">重度使用企微</b>的企业用户；但在<b style="color:#fff">编码、高稳定性、深度定制、非腾讯生态</b>场景下明显弱势。当前更适合当"需要盯着干活的副驾驶"，而非"全自动员工"。</p>
+        <br>
+        <h3>分人群建议</h3>
+        <p><b style="color:var(--sky)">推荐试用</b>：HR、行政、PM、销售、自媒体运营、知识创作者——尤其是公司已用企微 + 腾讯文档的团队。适合资料整理、文档初稿、表格清洗、信息汇总、会议纪要、周报等场景，且愿意复核结果。<br><br><b style="color:#F87171">不推荐</b>：开发者（用 Claude Code / Codex / OpenClaw）、高稳定性需求企业、深度定制需求用户、不使用企微的团队、处理敏感数据/财务/法律流程的场景。</p>
+        <br>
+        <h3>对元任务的启示</h3>
+        <p>WorkBuddy 验证了"执行型 Agent + Skills 生态 + 多渠道远程控制"路线的市场需求，其<b style="color:#fff">办公场景模板化</b>和<b style="color:#fff">腾讯生态整合</b>是 MetaCode 可借鉴的方向；反之，MetaCode 在<b style="color:#fff">编码能力、CLI 场景、模型中立性</b>上的优势是 WorkBuddy 当前短板，可作为差异化竞争点。两者并非直接竞品，场景侧重不同。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <div class="fl">
+      <svg width="36" height="36" viewBox="0 0 120 120" fill="none"><defs><linearGradient id="ngf" x1="0" y1="0" x2=".5" y2="1"><stop stop-color="#1E293B"/><stop offset="1" stop-color="#334155"/></linearGradient><linearGradient id="agf" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#38BDF8"/><stop offset="1" stop-color="#818CF8"/></linearGradient></defs><circle cx="60" cy="60" r="54" fill="url(#ngf)"/><rect x="28" y="28" width="64" height="64" rx="14" fill="none" stroke="url(#agf)" stroke-width="3"/><rect x="34" y="34" width="52" height="52" rx="11" fill="none" stroke="url(#agf)" stroke-width="2.5" transform="rotate(15,60,60)"/><rect x="50" y="50" width="20" height="20" rx="4" fill="url(#agf)" transform="rotate(45,60,60)"/></svg>
+      <span class="mt-name">元任务 MetaTask</span>
+    </div>
+    <div class="fmeta">WorkBuddy 产品评估报告 · 2026.07.16 · 基于公开产品调研与多源用户反馈整理<br>视觉规范：元任务全场景视觉规范 Design System v1.1 · Logo 本体以原 VI 为准，不可重绘改色<br>数据来源：腾讯云产品页、WorkBuddy 官方文档与更新日志、TechNode、知乎、CocoLoop、TRAE 社区、Linux Do、Reddit</div>
+  </div>
+</footer>
+
+</body>
+</html>
